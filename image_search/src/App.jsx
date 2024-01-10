@@ -12,6 +12,8 @@ const App = () => {
           <Form.Control
             type='search'
             placeholder='Input something to search...'
+            className='search-input'
+            ref={searchInput}
           />
         </Form>
       </div>
