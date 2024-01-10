@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState, useEffect, useCallback } from 'react';
+import { useRef, useState, useEffect, useCallback } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './index.css';
 
@@ -12,6 +12,7 @@ const App = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
   const [loading, setLoading] = useState(false);
+  const [errorMsg, setErrorMsg] = useState();
 
   const fetchImages = useCallback(async () => {
     try {
@@ -77,24 +78,30 @@ const App = () => {
         <div onClick={() => handleSelection('cats')}>Cats</div>
         <div onClick={() => handleSelection('shoes')}>Shoes</div>
       </div>
-      <div className='images'>
-        {images.map((image) => (
-          <img
-            key={image.id}
-            src={image.urls.small}
-            alt={image.alt_description}
-            className='image'
-          />
-        ))}
-      </div>
-      <div className='buttons'>
-        {page > 1 && (
-          <Button onClick={() => setPage(page - 1)}>Previous</Button>
-        )}
-        {page < totalPages && (
-          <Button onClick={() => setPage(page + 1)}>Next</Button>
-        )}
-      </div>
+      {loading ? (
+        <p className='loading'>Loading...</p>
+      ) : (
+        <>
+          <div className='images'>
+            {images.map((image) => (
+              <img
+                key={image.id}
+                src={image.urls.small}
+                alt={image.alt_description}
+                className='image'
+              />
+            ))}
+          </div>
+          <div className='buttons'>
+            {page > 1 && (
+              <Button onClick={() => setPage(page - 1)}>Previous</Button>
+            )}
+            {page < totalPages && (
+              <Button onClick={() => setPage(page + 1)}>Next</Button>
+            )}
+          </div>
+        </>
+      )}
     </div>
   );
 };
