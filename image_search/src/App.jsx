@@ -22,6 +22,12 @@ const App = () => {
           />
         </Form>
       </div>
+      <div className='filters'>
+        <div>Nature</div>
+        <div>Bird</div>
+        <div>Cats</div>
+        <div>Shoes</div>
+      </div>
     </div>
   );
 };
