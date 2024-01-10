@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './index.css';
 
@@ -12,26 +12,28 @@ const App = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
 
-  const fetchImages = async () => {
+  const fetchImages = useCallback(async () => {
     try {
-      const { data } = await axios.get(
-        `${API_URL}?query=${
-          searchInput.current.value
-        }&page=${page}&per_page=${IMAGES_PER_PAGE}&client_id=${
-          import.meta.env.VITE_API_KEY
-        }`
-      );
-      console.log('data', data);
-      setImages(data.results);
-      setTotalPages(data.total_pages);
+      if (searchInput.current.value) {
+        const { data } = await axios.get(
+          `${API_URL}?query=${
+            searchInput.current.value
+          }&page=${page}&per_page=${IMAGES_PER_PAGE}&client_id=${
+            import.meta.env.VITE_API_KEY
+          }`
+        );
+        console.log('data', data);
+        setImages(data.results);
+        setTotalPages(data.total_pages);
+      }
     } catch (error) {
       console.log(error);
     }
-  };
+  }, [page]);
 
   useEffect(() => {
     fetchImages();
-  }, [page]);
+  }, [fetchImages, page]);
 
   const resetSearch = () => {
     setPage(1);
@@ -41,14 +43,12 @@ const App = () => {
   const handleSearch = (event) => {
     event.preventDefault();
     console.log(searchInput.current.value);
-    fetchImages();
-    setPage(1);
+    resetSearch();
   };
 
   const handleSelection = (selection) => {
     searchInput.current.value = selection;
-    fetchImages();
-    setPage(1);
+    resetSearch();
   };
 
   console.log('page', page);
