@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import './index.css';
 
 const App = () => {
+  const searchInput = useRef(null);
   return (
     <div className='container'>
       <h1 className='title'>Image Searcher</h1>
