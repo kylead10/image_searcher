@@ -9,6 +9,10 @@ const App = () => {
     event.preventDefault();
     console.log(searchInput.current.value);
   };
+
+  const handleSelection = (selection) => {
+    searchInput.current.value = selection;
+  };
   return (
     <div className='container'>
       <h1 className='title'>Image Searcher</h1>
