@@ -11,10 +11,13 @@ const App = () => {
   const [images, setImages] = useState([]);
   const [totalPages, setTotalPages] = useState(0);
   const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   const fetchImages = useCallback(async () => {
     try {
       if (searchInput.current.value) {
+        setErrorMsg('');
+        setLoading(true);
         const { data } = await axios.get(
           `${API_URL}?query=${
             searchInput.current.value
@@ -22,18 +25,20 @@ const App = () => {
             import.meta.env.VITE_API_KEY
           }`
         );
-        console.log('data', data);
         setImages(data.results);
         setTotalPages(data.total_pages);
+        setLoading(false);
       }
     } catch (error) {
+      setErrorMsg('Error fetching images. Try again later.');
       console.log(error);
+      setLoading(false);
     }
   }, [page]);
 
   useEffect(() => {
     fetchImages();
-  }, [fetchImages, page]);
+  }, [fetchImages]);
 
   const resetSearch = () => {
     setPage(1);
