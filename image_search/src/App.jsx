@@ -5,9 +5,9 @@ import './index.css';
 const App = () => {
   const searchInput = useRef(null);
 
-  const handleSearch = () => {
+  const handleSearch = (event) => {
     event.preventDefault();
-    console.log('submitted');
+    console.log(searchInput.current.value);
   };
   return (
     <div className='container'>
