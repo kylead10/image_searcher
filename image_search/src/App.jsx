@@ -4,6 +4,8 @@ import './index.css';
 
 const API_URL = 'https://api.unsplash.com/search/photos';
 
+const IMAGES_PER_PAGE = 20;
+
 const App = () => {
   const searchInput = useRef(null);
 
@@ -15,6 +17,8 @@ const App = () => {
   const handleSelection = (selection) => {
     searchInput.current.value = selection;
   };
+
+  // const fetchImages
 
   return (
     <div className='container'>
