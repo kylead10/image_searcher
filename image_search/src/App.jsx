@@ -2,6 +2,8 @@ import React, { useRef } from 'react';
 import { Form } from 'react-bootstrap';
 import './index.css';
 
+const API_URL = 'https://api.unsplash.com/search/photos';
+
 const App = () => {
   const searchInput = useRef(null);
 
@@ -13,6 +15,7 @@ const App = () => {
   const handleSelection = (selection) => {
     searchInput.current.value = selection;
   };
+
   return (
     <div className='container'>
       <h1 className='title'>Image Searcher</h1>
