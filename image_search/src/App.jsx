@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useRef, useState } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { Button, Form } from 'react-bootstrap';
 import './index.css';
 
@@ -29,15 +29,26 @@ const App = () => {
     }
   };
 
+  useEffect(() => {
+    fetchImages();
+  }, [page]);
+
+  const resetSearch = () => {
+    setPage(1);
+    fetchImages();
+  };
+
   const handleSearch = (event) => {
     event.preventDefault();
     console.log(searchInput.current.value);
     fetchImages();
+    setPage(1);
   };
 
   const handleSelection = (selection) => {
     searchInput.current.value = selection;
     fetchImages();
+    setPage(1);
   };
 
   console.log('page', page);
