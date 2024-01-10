@@ -62,6 +62,7 @@ const App = () => {
   return (
     <div className='container'>
       <h1 className='title'>Image Searcher</h1>
+      {errorMsg && <p className='error-msg'>{errorMsg}</p>}
       <div className='search-section'>
         <Form onSubmit={handleSearch}>
           <Form.Control
